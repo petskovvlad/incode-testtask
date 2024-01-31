@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.search-block {
+  &__input {
+    width: 90%;
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  &__button {
+    height: 50px;
+    width: 9%;
+  }
+}
+
+.repo-input {
+  display: flex;
+  margin-top: 20px;
+
+  &__text_url {
+    color: blue;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+
+  &__container {
+    display: flex;
+  }
+
+  &__text_img {
+    margin-right: 5px;
+  }
+}

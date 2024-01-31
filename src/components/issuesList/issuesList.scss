@@ -1,0 +1,48 @@
+.issues {
+  display: flex;
+  gap: 100px;
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+  }
+
+  &__column-container {
+    margin: 35px;
+    background-color: #bab3b3;
+    border: 2px solid #767676;
+    border-radius: 5px;
+  }
+
+  &__column_item {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 25px;
+    background-color: white;
+    border: 2px solid #767676;
+    margin: 50px;
+    border-radius: 50px;
+    height: 300px;
+    overflow: hidden;
+    max-width: 100%;
+
+    &-title {
+      margin: 0;
+      padding-bottom: 15px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    &-description {
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-top: 10px;
+      margin-bottom: 10px;
+      color: #767676;
+    }
+  }
+}
