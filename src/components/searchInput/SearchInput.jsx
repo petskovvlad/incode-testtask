@@ -4,6 +4,7 @@ import { reposDataSelector } from "../../redux/issues.selectors";
 import { getIssuesData, getReposData } from "../../redux/issues.actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from 'prop-types';
 
 import "./searchInput.scss";
 
@@ -86,6 +87,13 @@ const SearchInput = ({
 const mapDispatch = {
   getIssuesData,
   getReposData,
+};
+
+SearchInput.propTypes = {
+  getIssuesData: PropTypes.func.isRequired,
+  getReposData: PropTypes.func.isRequired,
+  setIsInitialRender: PropTypes.func.isRequired,
+  isInitialRender: PropTypes.bool.isRequired,
 };
 
 export default connect(null, mapDispatch)(SearchInput);

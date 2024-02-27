@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { updateIssueState } from "../../redux/issues.actions";
+import PropTypes from 'prop-types';
 
 const IssuesInfo = ({ title, body, comments, user, state, id }) => {
   const dispatch = useDispatch();
@@ -52,6 +53,15 @@ const IssuesInfo = ({ title, body, comments, user, state, id }) => {
       </div>
     </div>
   );
+};
+
+IssuesInfo.propTypes = {
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string,
+  comments: PropTypes.number.isRequired,
+  user: PropTypes.string.isRequired,
+  state: PropTypes.oneOf(['open', 'actual', 'closed']).isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default IssuesInfo;

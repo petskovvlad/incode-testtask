@@ -76,6 +76,10 @@
       bottom: 10px;
     }
   }
+
+  &__column_item:last-child {
+    margin-bottom: 50px;
+  }
 }
 
 .buttons {
