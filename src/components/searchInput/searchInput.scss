@@ -26,8 +26,18 @@
 
   &__text_url {
     color: blue;
-    margin-right: 20px;
+    margin-right: 10px;
     cursor: pointer;
+  }
+
+  &__text_url:nth-child(2) {
+    cursor: auto;
+  }
+
+  &__text_url:nth-child(3) {
+    cursor: auto;
+    margin-right: 20px;
+
   }
 
   &__container {
@@ -36,5 +46,6 @@
 
   &__text_img {
     margin-right: 5px;
+    color: yellow;
   }
 }

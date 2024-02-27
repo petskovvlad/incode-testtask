@@ -47,6 +47,11 @@ const SearchInput = ({
     return value;
   };
 
+  const openOwnerPage = () => {
+    const repositoryUrl = `https://github.com/${owner}`;
+    window.open(repositoryUrl, "_blank");
+  };
+
   const openRepositoryPage = () => {
     const repositoryUrl = `https://github.com/${owner}/${repo}`;
     window.open(repositoryUrl, "_blank");
@@ -70,8 +75,15 @@ const SearchInput = ({
         <div className="repo-input">
           <div
             className="repo-input__text_url"
+            onClick={openOwnerPage}
+          >{`${owner}`}</div>
+          <div
+            className="repo-input__text_url"
+          >{'>'}</div>
+          <div
+            className="repo-input__text_url"
             onClick={openRepositoryPage}
-          >{`${owner} > ${repo}`}</div>
+          >{`${repo}`}</div>
           <div className="repo-input__container">
             <FontAwesomeIcon icon={faStar} className="repo-input__text_img" />
             <div className="repo-input__text_stars">{`${
