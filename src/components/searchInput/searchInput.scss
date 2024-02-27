@@ -5,6 +5,9 @@
 }
 
 .search-block {
+  flex: 1;
+  display: flex;
+
   &__input {
     width: 90%;
     height: 50px;

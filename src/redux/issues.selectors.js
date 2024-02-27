@@ -8,6 +8,11 @@ export const toDoIssuesListSelector = createSelector(
   (issuesData) => issuesData.filter((issue) => issue.state === "open")
 );
 
+export const actualIssuesListSelector = createSelector(
+  issuesDataSelector,
+  (issuesData) => issuesData.filter((issue) => issue.state === "actual")
+);
+
 export const doneIssuesListSelector = createSelector(
   issuesDataSelector,
   (issuesData) => issuesData.filter((issue) => issue.state === "closed")

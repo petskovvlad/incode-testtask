@@ -67,7 +67,10 @@ const SearchInput = ({
       </div>
       {isInitialRender && (
         <div className="repo-input">
-          <div className="repo-input__text_url" onClick={openRepositoryPage}>{`${owner} > ${repo}`}</div>
+          <div
+            className="repo-input__text_url"
+            onClick={openRepositoryPage}
+          >{`${owner} > ${repo}`}</div>
           <div className="repo-input__container">
             <FontAwesomeIcon icon={faStar} className="repo-input__text_img" />
             <div className="repo-input__text_stars">{`${

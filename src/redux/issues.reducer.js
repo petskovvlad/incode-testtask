@@ -1,4 +1,8 @@
-import { ISSUES_DATA_RECIEVED, REPOS_DATA_RECIEVED } from "./issues.actions";
+import {
+  ISSUES_DATA_RECIEVED,
+  REPOS_DATA_RECIEVED,
+  UPDATE_ISSUE_STATE,
+} from "./issues.actions";
 
 const initialState = {
   issuesData: [],
@@ -16,6 +20,21 @@ const issuesReducer = (state = initialState, action) => {
       return {
         ...state,
         reposData: action.payload,
+      };
+    case UPDATE_ISSUE_STATE:
+      const { id } = action.payload;
+      const updatedIssues = state.issuesData.map((issue) => {
+        if (issue.id === id) {
+          return {
+            ...issue,
+            state: action.payload.state,
+          };
+        }
+        return issue;
+      });
+      return {
+        ...state,
+        issuesData: updatedIssues,
       };
     default:
       return state;

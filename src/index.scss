@@ -11,7 +11,7 @@
 
 body {
   background-color: #e7efec;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   &::-webkit-scrollbar {
     width: 0px;
     background-color: rgba(255, 255, 255, 0);
@@ -22,6 +22,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 100%;
   flex-direction: column;
 }

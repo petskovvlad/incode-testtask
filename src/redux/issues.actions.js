@@ -2,6 +2,17 @@ import { issuesData, reposData } from "../gateway/issuesGateway";
 
 export const ISSUES_DATA_RECIEVED = "ISSUES_DATA_RECIEVED";
 export const REPOS_DATA_RECIEVED = "REPOS_DATA_RECIEVED";
+export const UPDATE_ISSUE_STATE = "UPDATE_ISSUE_STATE";
+
+export const updateIssueState = (id, state) => {
+  return {
+    type: UPDATE_ISSUE_STATE,
+    payload: {
+      id,
+      state,
+    },
+  };
+};
 
 export const issuesDataReceived = (issuesData) => {
   return {

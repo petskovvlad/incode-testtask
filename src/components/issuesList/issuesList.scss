@@ -1,48 +1,84 @@
 .issues {
   display: flex;
-  gap: 100px;
+  width: 100%;
+  text-align: center;
 
   &__column {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 50%;
   }
 
   &__column-container {
-    margin: 35px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #bab3b3;
     border: 2px solid #767676;
-    border-radius: 5px;
+    border-radius: 20px;
+    width: 90%;
+    margin: 30px;
   }
 
   &__column_item {
     display: flex;
+    position: relative;
     flex-direction: column;
+    align-items: center;
     text-align: left;
-    padding: 25px;
     background-color: white;
     border: 2px solid #767676;
-    margin: 50px;
     border-radius: 50px;
     height: 300px;
     overflow: hidden;
-    max-width: 100%;
+    width: 90%;
+    padding: 25px;
+    margin-top: 50px;
 
     &-title {
       margin: 0;
-      padding-bottom: 15px;
+      padding-bottom: 20px;
       font-size: 24px;
       font-weight: 500;
+      max-height: calc(1.2em * 2);
+      line-height: 1.2em;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &-description {
-      margin: 0;
+      margin: 15px 0 0 0;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding-top: 10px;
       margin-bottom: 10px;
       color: #767676;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: calc(1.2em * 2);
+      line-height: 1.2em;
+      overflow-y: auto;
+    }
+
+    &-footer {
+      position: absolute;
+      bottom: 80px;
+      left: 25px;
+      color: #767676;
+    }
+
+    &-button {
+      border-radius: 10px;
+      width: 100px;
+      height: 50px;
+      margin: 10px;
+      cursor: pointer;
+      bottom: 10px;
     }
   }
+}
+
+.buttons {
+  position: absolute;
+  bottom: 10px;
 }
