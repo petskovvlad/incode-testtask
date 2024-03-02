@@ -4,7 +4,7 @@ import { reposDataSelector } from "../../redux/issues.selectors";
 import { getIssuesData, getReposData } from "../../redux/issues.actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import "./searchInput.scss";
 
@@ -16,29 +16,35 @@ const SearchInput = ({
 }) => {
   const [inputValue, changeInputValue] = useState("");
   const [formData, setFormData] = useState({
-    owner: "",
-    repo: "",
+    login: "",
+    name: "",
     watchers: 0,
   });
 
   const reposData = useSelector((state) => reposDataSelector(state));
-  const { watchers } = reposData || {};
+  const reposDataLocal =
+    localStorage.getItem("reposData") &&
+    JSON.parse(localStorage.getItem("reposData"));
+  const finalReposData = reposData.length > 0 ? reposData : reposDataLocal;
+
+  const { watchers } = finalReposData || {};
 
   const loadIssues = () => {
-    const [owner, repo] = inputValue.split("/");
-    getIssuesData(owner, repo);
-    getReposData(owner, repo);
+    const [login, name] = inputValue.split("/");
+    getIssuesData(login, name);
+    getReposData(login, name);
     setFormData({
       ...formData,
-      owner,
-      repo,
+      login,
+      name,
       watchers,
     });
     changeInputValue("");
     setIsInitialRender(true);
   };
 
-  const { owner, repo } = formData;
+  const { name, owner } = finalReposData || {};
+  const { login } = owner || {};
 
   const formatWatchers = (value) => {
     if (value >= 1000) {
@@ -48,12 +54,12 @@ const SearchInput = ({
   };
 
   const openOwnerPage = () => {
-    const repositoryUrl = `https://github.com/${owner}`;
+    const repositoryUrl = `https://github.com/${login}`;
     window.open(repositoryUrl, "_blank");
   };
 
   const openRepositoryPage = () => {
-    const repositoryUrl = `https://github.com/${owner}/${repo}`;
+    const repositoryUrl = `https://github.com/${login}/${name}`;
     window.open(repositoryUrl, "_blank");
   };
 
@@ -76,14 +82,12 @@ const SearchInput = ({
           <div
             className="repo-input__text_url"
             onClick={openOwnerPage}
-          >{`${owner}`}</div>
-          <div
-            className="repo-input__text_url"
-          >{'>'}</div>
+          >{`${login}`}</div>
+          <div className="repo-input__text_url">{">"}</div>
           <div
             className="repo-input__text_url"
             onClick={openRepositoryPage}
-          >{`${repo}`}</div>
+          >{`${name}`}</div>
           <div className="repo-input__container">
             <FontAwesomeIcon icon={faStar} className="repo-input__text_img" />
             <div className="repo-input__text_stars">{`${

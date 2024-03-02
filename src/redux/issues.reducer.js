@@ -12,14 +12,18 @@ const initialState = {
 const issuesReducer = (state = initialState, action) => {
   switch (action.type) {
     case ISSUES_DATA_RECIEVED:
+      localStorage.setItem("issuesData", JSON.stringify(action.payload));
       return {
         ...state,
-        issuesData: action.payload,
+        issuesData:
+          state.issuesData.length === 0 ? action.payload : state.issuesData,
       };
     case REPOS_DATA_RECIEVED:
+      localStorage.setItem("reposData", JSON.stringify(action.payload));
       return {
         ...state,
-        reposData: action.payload,
+        reposData:
+          state.reposData.length === 0 ? action.payload : state.reposData,
       };
     case UPDATE_ISSUE_STATE:
       const { id } = action.payload;
@@ -32,6 +36,7 @@ const issuesReducer = (state = initialState, action) => {
         }
         return issue;
       });
+      localStorage.setItem("issuesData", JSON.stringify(updatedIssues));
       return {
         ...state,
         issuesData: updatedIssues,

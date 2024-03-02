@@ -2,32 +2,50 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { updateIssueState } from "../../redux/issues.actions";
-import PropTypes from 'prop-types';
+import {
+  issuesDataReceived,
+  reposDataReceived,
+  updateIssueState,
+} from "../../redux/issues.actions";
+import PropTypes from "prop-types";
 
 const IssuesInfo = ({ title, body, comments, user, state, id }) => {
   const dispatch = useDispatch();
 
-  const leftClick = () => {
+  const useLocalStorage = (key, defaultValue) => {
+    const storedValue = JSON.parse(localStorage.getItem(key)) || defaultValue;
+    return storedValue;
+  };
+
+  const issueStorageData = useLocalStorage("issuesData", []);
+  const reposStorageData = useLocalStorage("reposData", []);
+
+  const handleStateChange = async (newState) => {
+    await dispatch(issuesDataReceived(issueStorageData));
+    await dispatch(reposDataReceived(reposStorageData));
+    await dispatch(updateIssueState(id, newState));
+  };
+
+  const leftClick = async () => {
     switch (state) {
       case "closed":
-        dispatch(updateIssueState(id, "actual"));
+        await handleStateChange("actual");
         break;
       case "actual":
-        dispatch(updateIssueState(id, "open"));
+        await handleStateChange("open");
         break;
       default:
         break;
     }
   };
 
-  const rightClick = () => {
+  const rightClick = async () => {
     switch (state) {
       case "open":
-        dispatch(updateIssueState(id, "actual"));
+        await handleStateChange("actual");
         break;
       case "actual":
-        dispatch(updateIssueState(id, "closed"));
+        await handleStateChange("closed");
         break;
       default:
         break;
@@ -60,7 +78,7 @@ IssuesInfo.propTypes = {
   body: PropTypes.string,
   comments: PropTypes.number.isRequired,
   user: PropTypes.string.isRequired,
-  state: PropTypes.oneOf(['open', 'actual', 'closed']).isRequired,
+  state: PropTypes.oneOf(["open", "actual", "closed"]).isRequired,
   id: PropTypes.number.isRequired,
 };
 

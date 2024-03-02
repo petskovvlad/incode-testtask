@@ -1,87 +1,68 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import IssuesInfo from "./IssueInfo";
 import {
   toDoIssuesListSelector,
   doneIssuesListSelector,
   actualIssuesListSelector,
 } from "../../redux/issues.selectors";
-import IssuesInfo from "./IssueInfo";
 
 import "./issuesList.scss";
 
 const IssuesList = () => {
-  const filteredToDoList = useSelector((state) =>
-    toDoIssuesListSelector(state)
+  const toDoList = useSelector(toDoIssuesListSelector);
+  const doneList = useSelector(doneIssuesListSelector);
+  const actualList = useSelector(actualIssuesListSelector);
+
+  const localStorageData = JSON.parse(localStorage.getItem("issuesData")) || [];
+  const toDoListLocal = localStorageData.filter(
+    (issue) => issue.state === "open"
+  );
+  const doneListLocal = localStorageData.filter(
+    (issue) => issue.state === "closed"
+  );
+  const actualListLocal = localStorageData.filter(
+    (issue) => issue.state === "actual"
   );
 
-  const filteredDoneList = useSelector((state) =>
-    doneIssuesListSelector(state)
-  );
-
-  const filteredActualList = useSelector((state) =>
-    actualIssuesListSelector(state)
-  );
+  const renderIssues = (issues) => {
+    return issues.map(({ id, title, body, comments, user, state }) => (
+      <IssuesInfo
+        key={id}
+        id={id}
+        title={title}
+        body={body}
+        comments={comments}
+        user={user.login}
+        state={state}
+      />
+    ));
+  };
 
   return (
     <div className="issues">
       <div className="issues__column">
         <h1 className="issues__column_title">ToDO</h1>
         <div className="issues__column-container">
-          {filteredToDoList.map(
-            ({ id, title, body, comments, user, state }) => {
-              return (
-                <IssuesInfo
-                  key={id}
-                  id={id}
-                  title={title}
-                  body={body}
-                  comments={comments}
-                  user={user.login}
-                  state={state}
-                />
-              );
-            }
-          )}
+          {toDoList.length > 0
+            ? renderIssues(toDoList)
+            : renderIssues(toDoListLocal)}
         </div>
       </div>
       <div className="issues__column">
         <h1 className="issues__column_title">In Progress</h1>
         <div className="issues__column-container">
-          {filteredActualList.map(
-            ({ id, title, body, comments, user, state }) => {
-              return (
-                <IssuesInfo
-                  key={id}
-                  id={id}
-                  title={title}
-                  body={body}
-                  comments={comments}
-                  user={user.login}
-                  state={state}
-                />
-              );
-            }
-          )}
+          {actualList.length > 0
+            ? renderIssues(actualList)
+            : renderIssues(actualListLocal)}
         </div>
       </div>
       <div className="issues__column">
         <h1 className="issues__column_title">Done</h1>
         <div className="issues__column-container">
-          {filteredDoneList.map(
-            ({ id, title, body, comments, user, state }) => {
-              return (
-                <IssuesInfo
-                  key={id}
-                  id={id}
-                  title={title}
-                  body={body}
-                  comments={comments}
-                  user={user.login}
-                  state={state}
-                />
-              );
-            }
-          )}
+          {doneList.length > 0
+            ? renderIssues(doneList)
+            : renderIssues(doneListLocal)}
         </div>
       </div>
     </div>
