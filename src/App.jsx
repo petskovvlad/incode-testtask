@@ -7,7 +7,6 @@ import store from "./store";
 
 const App = () => {
   const [isInitialRender, setIsInitialRender] = useState(false);
-  console.log(isInitialRender);
 
   useEffect(() => {
     const issuesDataInLocalStorage = JSON.parse(
